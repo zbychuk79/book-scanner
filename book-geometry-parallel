@@ -3,8 +3,8 @@
 # Uruchamia równolegle skrypty korygujące geometrię i obracające zdjęcia stron
 # zeskanowanej książki. Kolejno lewe i prawe strony.
 #
-# Parametr -j (niżej) określa ilość równoległych wątków.
-jobs="24"
+# Parametr -j (niżej) określa ilość równoległych wątków procesora.
+jobs=`cat /proc/cpuinfo | grep processor | wc -l`
 
 # Udostępniony katalog przez NFS w sieci LAN
 cd /a/o1-download/book-scanner/bl
