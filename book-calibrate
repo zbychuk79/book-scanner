@@ -48,7 +48,7 @@ case $kartka in
 	    jpegtopnm calib-p.jpg | ppmunwarp -m check-p.ppm > deform-p.bin
                                 ;;
         * )            echo "
-Nie podałeś parametru -k [ l | p ]
+ Nie podałeś parametru -k [ l | p ]
 "
                        usage
                        exit 0

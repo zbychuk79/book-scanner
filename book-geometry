@@ -64,6 +64,5 @@ esac
 for i in $plik;
 do
     nazwa=`basename $i .jpg`
-    jpegtopnm $i | ppmunwarp -d $korekta | pnmtopng > $cel/$nazwa-unwarp.png
     jpegtopnm $i | ppmunwarp -d $korekta | convert -rotate $obrot pnm:- pnm:- | pnmtopng > $cel/$nazwa-unwarp.png
 done
