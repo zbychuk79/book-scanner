@@ -1,0 +1,69 @@
+#!/bin/bash
+# book-geometry
+
+# Skrypt działa jednowątkowo.
+#
+# Przeprowadza korektę geometryczną dla kamery na podstawie wcześniej
+# wykonanej kalibracji plików znajdujących się w aktualnym katalogu.
+#
+# Pliki zapisuje w aktualnym katalogu 
+
+skrypt=`printf '%s\n' "${0##*/}"`
+
+cel="."
+
+usage()
+{
+    echo "
+Jak używać: $skrypt -k [ l | p ] -i plik
+
+ -k [ l | p ]
+	l - lewa kartka
+	p - prawa kartka
+ -i plik (do korekcji)
+
+ Zostanie utworzony plik .PNG z -unwarp w nazwie.
+"
+}
+
+if [ "$#" = 0 ]; then
+    usage
+    exit 0
+fi
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -k )         shift
+                                kartka=$1
+                                ;;
+        -i )         shift
+                                plik=$1
+                                ;;
+        * )                     usage
+                                exit 0
+    esac
+    shift
+done
+
+case $kartka in
+        l )
+	korekta="../deform-l.bin"
+	obrot="270"
+                                ;;
+        p )
+	korekta="../deform-p.bin"
+	obrot="90"
+                                ;;
+        * )            echo "
+Nie podałeś parametru -k [ l | p ]
+"
+                       usage
+                       exit 0
+esac
+
+for i in $plik;
+do
+    nazwa=`basename $i .jpg`
+    jpegtopnm $i | ppmunwarp -d $korekta | pnmtopng > $cel/$nazwa-unwarp.png
+    jpegtopnm $i | ppmunwarp -d $korekta | convert -rotate $obrot pnm:- pnm:- | pnmtopng > $cel/$nazwa-unwarp.png
+done

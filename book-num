@@ -1,0 +1,59 @@
+#!/bin/bash
+# book-num
+
+# Numeruje zdjęcia kolejno z serii stron
+
+skrypt=`printf '%s\n' "${0##*/}"`
+
+usage()
+{
+    echo "
+Jak używać: $skrypt -k [ r | m ] -n [ num ] [ -h ]
+-k [ r | m ]
+	r - numeruj rosnąco
+	p - numeruj malejąco
+-n num - od jakiego numeru zacząć
+-h wyświetlenie tej instrukcji
+"
+}
+
+if [ "$#" = 0 ]; then
+    usage
+    exit 0
+fi
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -k )         shift
+                                kierunek=$1
+                                ;;
+        -n )         shift
+                                numer=$1
+                                ;;
+        -h )         usage
+                                exit 0
+                                ;;
+        * )                     usage
+                                exit 0
+    esac
+    shift
+done
+
+a=$numer
+for i in *.png; do
+  new=$(printf "%04d.png" "$a") #04 pad to length of 4
+  mv -i -- "$i" "$new"
+    case $kierunek in
+        r )      
+    let a=a+1
+                                ;;
+        m )      
+    let a=a-1
+                                ;;
+        * )            echo
+                       echo "Nie podałeś parametru -k [ r | m ]"
+                       echo
+                       usage
+                       exit 0
+    esac
+done

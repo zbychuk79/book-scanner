@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Uruchamia równolegle skrypty korygujące geometrię i obracające zdjęcia stron
+# zeskanowanej książki. Kolejno lewe i prawe strony.
+#
+# Parametr -j (niżej) określa ilość równoległych wątków.
+jobs="24"
+
+# Udostępniony katalog przez NFS w sieci LAN
+cd /a/o1-download/book-scanner/bl
+
+# Równoległe wykonanie korekty dla listy plików
+ls "$@" | parallel -j $jobs book-geometry-l {}
+
+
+# Tak jak wyżej, ale dla drugiej kamery (prawe strony książki)
+cd /a/o1-download/book-scanner/bp
+ls "$@" | parallel -j $jobs book-geometry-p {}

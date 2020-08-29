@@ -1,0 +1,55 @@
+#!/bin/bash
+# book-calibrate
+
+# Generuje dane korekty geometrycznej dla kamery na podstawie zdjęcia
+# matrycy punktów.
+
+skrypt=`printf '%s\n' "${0##*/}"`
+
+usage()
+{
+    echo "
+Jak używać: $skrypt -k [ l | p ] -f plik_kalibracyjny
+ -k [ l | p ]
+	l - lewa kartka
+	p - prawa kartka
+ -f zdjęcie matrycy punktów dla kalibracji
+"
+}
+
+if [ "$#" = 0 ]; then
+    usage
+    exit 0
+fi
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -k )         shift
+                                kartka=$1
+                                ;;
+        -f )         shift
+                                matryca=$1
+                                ;;
+        * )                     usage
+                                exit 0
+    esac
+    shift
+done
+
+case $kartka in
+        l )
+	    cp $matryca ../calib-l.jpg
+	    cd ..
+	    jpegtopnm calib-l.jpg | ppmunwarp -m check-l.ppm > deform-l.bin
+                                ;;
+        p )
+	    cp $matryca ../calib-p.jpg
+	    cd ..
+	    jpegtopnm calib-p.jpg | ppmunwarp -m check-p.ppm > deform-p.bin
+                                ;;
+        * )            echo "
+Nie podałeś parametru -k [ l | p ]
+"
+                       usage
+                       exit 0
+esac

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Skrypt zdalnie wyłącza oba Raspberry Pi.
+# W ~/.bin/h na każdym Raspberry Pi jest polecenie zamykające system.
+
+ssh pi@bl '~/.bin/h'
+ssh pi@bp '~/.bin/h'
