@@ -50,9 +50,9 @@ for i in *.png; do
         m )      
     let a=a-1
                                 ;;
-        * )            echo
-                       echo "Nie podałeś parametru -k [ r | m ]"
-                       echo
+        * )            echo "
+Nie podałeś parametru -k [ r | m ]
+"
                        usage
                        exit 0
     esac
