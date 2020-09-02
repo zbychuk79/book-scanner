@@ -34,4 +34,4 @@ i=$1
 korekta="../deform-p.bin"
 nazwa=`basename $i .jpg`
 
-jpegtopnm $i | ppmunwarp -d $korekta | convert -rotate 90 pnm:- pnm:- | pnmtopng > $cel/$nazwa-unwarp.png
+jpegtopnm $i | ppmunwarp -d $korekta | convert -rotate 90 -colorspace Gray pnm:- pnm:- | pnmtopng > $cel/$nazwa-unwarp-gray.png
