@@ -3,7 +3,7 @@
 Znajdują się tu skrypty, których używam do wstępnej obróbki zdjęć zarejestrowanych na moim skanerze książek,
 przed ich przetworzeniem w programie **ScanTailor**.
 
-Używam nowych kamer, które wypuściła fundacja **Raspberry Pi**. Mają one po 12.3MPix. Do tego mam podpięte do każdej z nich obiektyw 16mm.
+Używam nowych kamer, które wypuściła fundacja **Raspberry Pi**. Mają one po 12.3MPix. Do tego mam podpięty do każdej z nich obiektyw 16mm.
 
 Wspomniana obróbka obejmuje korektę geometryczną z pomocą siatki jako szablonu, konwersję do skali szarości
  i obrót każdej zeskanowanej strony w odpowiednim kierunku.
