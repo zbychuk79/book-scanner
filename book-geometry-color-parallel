@@ -10,9 +10,9 @@ jobs=`cat /proc/cpuinfo | grep processor | wc -l`
 cd /a/o1-download/book-scanner/bl
 
 # Równoległe wykonanie korekty dla listy plików
-ls "$@" | parallel -j $jobs book-geometry-l {}
+ls "$@" | parallel -j $jobs book-geometry-l-color {}
 
 
 # Tak jak wyżej, ale dla drugiej kamery (prawe strony książki)
 cd /a/o1-download/book-scanner/bp
-ls "$@" | parallel -j $jobs book-geometry-p {}
+ls "$@" | parallel -j $jobs book-geometry-p-color {}

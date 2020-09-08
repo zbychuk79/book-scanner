@@ -1,0 +1,37 @@
+#!/bin/bash
+# book-geometry-p
+
+# Skrypt uruchamiany z argumentem jednego pliku równolegle przez inny skrypt,
+# każdorazowo z inną nazwą pliku.
+#
+# Przeprowadza korektę geometryczną dla kamery na podstawie wcześniej
+# wykonanej kalibracji.
+#
+# Pliki zapisuje w katalogu ~/papers/book
+# Obrabia pliki z prawej kartki.
+
+skrypt=`printf '%s\n' "${0##*/}"`
+
+cel="/home/zbychuk/papers/book"
+
+usage()
+{
+    echo "
+Jak używać: $skrypt plik
+
+ plik (do korekcji)
+
+ Zostanie utworzony plik .PNG z -unwarp w nazwie.
+"
+}
+
+if [ "$#" = 0 ]; then
+    usage
+    exit 0
+fi
+
+i=$1
+korekta="../deform-p.bin"
+nazwa=`basename $i .jpg`
+
+jpegtopnm $i | ppmunwarp -d $korekta | convert -rotate 90 pnm:- pnm:- | pnmtopng > $cel/$nazwa-unwarp-color.png
